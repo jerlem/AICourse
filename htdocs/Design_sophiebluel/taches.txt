@@ -1,0 +1,71 @@
+Re, 
+
+On est tous contents que tu nous aies rejoints et que tu nous prêtes main-forte pour le Front du site. 
+
+ 
+
+Je te mets en pièces jointes tout ce dont on a parlé pendant la réunion :
+
+le Figma du design qui te servira à créer les nouvelles fonctionnalités ;
+le code back-end qui te permettra de faire persister les données et de tester les fonctionnalités ;
+le code front-end d’origine avec la version statique de la page de l’architecte ;
+le Kanban pour la mission, pour que tu puisses voir les tâches qui te sont attribuées.
+
+On reste à ta disposition pour toute question sur le projet. 
+
+Belle journée à toi et à très vite. 
+
+Charlotte, 
+
+Cheffe de projet
+
+---
+
+Après la réunion et le mail de Charlotte, vous listez vos 3 missions principales. Vous devez donc développer :
+
+la page de présentation des travaux de l'architecte (à partir du HTML fourni) ;
+la page de connexion de l'administrateur du site (le client) (code à créer de zéro) ;
+la modale permettant d'uploader de nouveaux médias (code à créer from scratch).
+
+---
+Récupérer dynamiquement les données des travaux via l’API :
+Pour ce faire il faudra utiliser la version 1 de l’API développée par Fatima.
+
+Après avoir cloné le REPO de l’API → voir les informations nécessaires pour les différentes routes grâce au document Swagger.
+
+Bien suivre le ReadMe pour pouvoir se lancer sur l’API
+---
+Ajouter le tri des projets par catégorie dans la galerie:
+Une fois les projets récupérés depuis l’API → mettre en place le tri par catégorie comme sur la maquette. 
+Par exemple quand on cliquera sur Office, on ne verra que les travaux de cette catégorie. 
+
+La génération des filtres eux-même devra se faire de façon dynamique.
+---
+Intégrer la page de connexion pour le site:
+En suivant la maquette, intégrer le formulaire de connexion au site. 
+
+Lorsque le couple identifiant et mot de passe n’est pas bon pour se connecter il faut afficher le message d’erreur: 
+
+“Erreur dans l’identifiant ou le mot de passe”
+
+Lorsque le couple identifiant et mot de passe est correct. 
+
+Alors il faut rediriger vers la page du site avec cette fois ci des boutons d’actions pour éditer le site.
+---
+Ajouter la modale pour gérer les projets:
+Créer une fenêtre modale qui s’ouvre lorsque l’on souhaite modifier la liste des projets. 
+
+Les projets apparaissent comme indiqué dans le design de Juan. 
+
+En cliquant sur l’icone de corbeille on peut supprimer un travail
+---
+Créer le formulaire pour l’ajout de projet:
+Une fois que la modale est fonctionnelle et que l’on peut supprimer des projets, il faudra faire le formulaire permettant d’ajouter une image. 
+
+Il y aura pour cela : 
+
+1 champ image pour uploader une image
+
+1 champ pour nommer le projet 
+
+1 champ select pour choisir une categorie parmis les catégories disponibles

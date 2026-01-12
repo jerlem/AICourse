@@ -1,0 +1,570 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/** end reset css**/
+body {
+	max-width: 1140px;
+	margin: auto;
+	font-family: 'Work Sans';
+	font-size: 14px;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+
+section {
+	margin: 50px 0
+}
+
+h1 {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C
+}
+
+h1>span {
+	font-family: 'Work Sans';
+	font-size: 10px;
+	letter-spacing: 0.1em;
+	;
+}
+
+h2 {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
+}
+
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+
+}
+
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+/* Modal */
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 2000;
+}
+
+.modal-wrapper {
+	background-color: white;
+	width: 630px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 60px 100px;
+	border-radius: 10px;
+	position: relative;
+	overflow-y: auto;
+}
+
+.js-modal-close {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	border: none;
+	background: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.js-modal-back {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	border: none;
+	background: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#modal h3 {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	font-weight: 400;
+	text-align: center;
+	margin-bottom: 45px;
+	color: black;
+}
+
+.modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 10px;
+	margin-bottom: 45px;
+}
+
+.modal-gallery figure {
+	position: relative;
+}
+
+.modal-gallery img {
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+}
+
+.delete-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	color: white;
+	border: none;
+	padding: 2px 5px;
+	cursor: pointer;
+	border-radius: 2px;
+	font-size: 12px;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #B3B3B3;
+	width: 100%;
+	margin-bottom: 35px;
+}
+
+.modal-btn {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 0 auto;
+	width: 237px;
+	height: 36px;
+	display: block;
+	border: none;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+/* Upload form */
+.upload-container {
+	background-color: #E8F1F6;
+	height: 170px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 30px;
+	border-radius: 3px;
+	position: relative;
+}
+
+.upload-container i {
+	font-size: 70px;
+	color: #B9C5CC;
+	margin-bottom: 10px;
+}
+
+.upload-label {
+	background-color: #CBD6DC;
+	color: #306685;
+	padding: 10px 30px;
+	border-radius: 50px;
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.upload-container p {
+	font-size: 10px;
+	margin-top: 5px;
+}
+
+#file-upload {
+	display: none;
+}
+
+#image-preview {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	background-color: #E8F1F6;
+}
+
+#modal-add-photo form {
+	display: flex;
+	flex-direction: column;
+}
+
+#modal-add-photo label {
+	margin-bottom: 10px;
+	font-weight: 500;
+	text-align: left;
+}
+
+#modal-add-photo input[type="text"],
+#modal-add-photo select {
+	height: 50px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 30px;
+	padding: 0 15px;
+}
+
+.modal-btn-validate {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #A7A7A7;
+	margin: 0 auto;
+	width: 237px;
+	height: 36px;
+	display: block;
+	border: none;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+.modal-btn-validate.valid {
+	background-color: #1D6154;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.edit-bar {
+	display: none;
+	background-color: black;
+	color: white;
+	height: 59px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	z-index: 1000;
+}
+
+body.admin-mode {
+	padding-top: 59px;
+}
+
+body.admin-mode .edit-bar {
+	display: flex;
+}
+
+.edit-bar button {
+	background-color: white;
+	color: black;
+	border-radius: 60px;
+	border: none;
+	padding: 11px 23px;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.portfolio-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	margin-bottom: 2em;
+}
+
+.edit-trigger {
+	display: none;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+body.admin-mode .edit-trigger {
+	display: inline-block;
+}
+
+body.admin-mode #filters {
+	display: none;
+}
+
+li:hover {
+	color: #B1663C;
+}
+
+#introduction {
+	display: flex;
+	align-items: center;
+}
+
+#introduction figure {
+	flex: 1
+}
+
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1
+}
+
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.filters {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 50px;
+}
+
+.filter-btn {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	padding: 10px 20px;
+	cursor: pointer;
+	min-width: 100px;
+	text-align: center;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+	background-color: #1D6154;
+	color: white;
+}
+
+.gallery img {
+	width: 100%;
+
+}
+
+#contact {
+	width: 50%;
+	margin: auto;
+}
+
+#contact>* {
+	text-align: center;
+
+}
+
+#contact h2 {
+	margin-bottom: 20px;
+}
+
+#contact form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#contact input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#contact label {
+	margin: 2em 0 1em 0;
+}
+
+#contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px;
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em
+}
