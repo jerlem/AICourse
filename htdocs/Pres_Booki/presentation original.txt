@@ -1,0 +1,109 @@
+-----------------------------
+1. Introduction (0:00 - 1:00)
+-----------------------------
+[00] "Bonjour. Je vais vous présenter aujourd'hui mon travail sur l'intégration du site Booki, 
+
+L'objectif principal de ce projet était de transformer une maquette graphique statique en un 
+site web moderne, fonctionnel et surtout entièrement responsive. Pour ce faire, 
+j'ai utilisé exclusivement du HTML5 et du CSS3, sans aucun framework externe,
+afin de garantir une base de code légère, sémantique et parfaitement maîtrisée.
+
+-----------------------------
+2. Header et Identité Visuelle (1:00 - 2:00)
+-----------------------------
+[01] "Commençons par le haut de la page : le header. Mon premier défi a été d'aligner parfaitement
+le logo et la navigation tout en respectant les marges de la maquette.
+
+J'ai utilisé Flexbox pour séparer le logo à gauche et les liens à droite.
+Pour la navigation, la sémantique est respectée grâce aux balises <nav> et <ul>.
+Côté design, j'ai implémenté un effet au survol sur les liens 'Hébergements' et 'Activités'.
+On peut observer une bordure bleue qui apparaît au-dessus du texte.
+
+-----------------------------
+3. Recherche et Système de Filtres (2:00 - 3:00)
+-----------------------------
+[02] "Passons à la partie fonctionnelle du site. La barre de recherche a été conçue comme
+un formulaire complet. Technique importante ici : l'icône de localisation est intégrée
+dans un conteneur gris fixe, tandis que le bouton 'Rechercher' change d'apparence selon
+l'appareil. En dessous, nous avons la section des filtres.
+
+[03] J'ai également intégré la barre de filtres, en utilisant les icônes FontAwesome 
+reproduisant celles présentes dans la maquette.
+
+J'ai recréé les boutons avec un border-radius prononcé pour l'aspect 'pilule' moderne.
+Chaque bouton filtre possède un état :hover qui change la couleur de fond et de la bordure,
+renforçant l'interactivité.
+
+-----------------------------
+4. Section Hébergements et Conception des Cartes (3:00 - 5:00)
+-----------------------------
+[04] "maintenant l'affichage es Hébergements. 
+Chaque hébergement est présenté sous forme de 'card'. 
+
+Pour ces dernières, une attention particulière aux détails :
+
+Chaque carte est enveloppée dans une balise <a>, rendant l'intégralité du bloc cliquable.
+Le design utilise un fond blanc, une bordure légère et surtout la box-shadow qui donne du relief.
+
+Pour les images, afin d'éviter tout écrasement ou étirement, j'ai utilisé la propriété
+CSS object-fit: cover.
+
+Enfin, le système d'étoiles pour la note est implémenté avec des icônes FontAwesome.
+Une classe CSS spécifique permet de colorer en bleu les étoiles pleines
+et en gris les étoiles vides, offrant une lecture instantanée de la qualité de l'hôtel."
+
+-----------------------------
+5. Layout et Affichage (5:00 - 6:30)
+-----------------------------
+[05] "Parlons maintenant de l'architecture de la page. Pour organiser ces sections, 
+j'ai opté pour une approche hybride :
+
+La section 'Hébergements' utilise CSS Grid. Cela me permet de définir une grille de
+3 colonnes sur 2 lignes qui reste parfaitement alignée peu importe la taille de l'écran.
+À côté, la section 'Les plus populaires' utilise Flexbox avec une direction de colonne.
+
+[06] L'utilisation de la propriété gap a été providentielle ici pour gérer les espacements
+de manière globale, évitant ainsi de cumuler des marges externes sur chaque élément individuel.
+Cette approche garantit que les cartes restent toujours parfaitement jointives visuellement."
+
+-----------------------------
+6. Activités locales (6:30 - 7:30)
+-----------------------------
+[06] "En bas de page, nous retrouvons le conteneur des activités. Ici,
+j'ai conservé la même logique de cartes mais en reprennant le format vertical de la charte graphique.
+
+J'ai de nouveau utilisé une grille (Grid) à 4 colonnes.
+L'important ici était de maintenir la cohérence graphique :
+on retrouve les mêmes arrondis de 20 pixels et les mêmes ombres portées,
+ce qui assure une unité visuelle sur l'ensemble du site."
+
+-----------------------------
+7. Le Défi du Responsive Design (7:30 - 9:30)
+-----------------------------
+[07] "C'est sans doute la partie la plus technique : rendre ce site agréable sur tous les supports.
+
+Sur Tablette en 1024, j'ai décidé de passer la section 'Hébergements' et 'Populaires'
+l'une au-dessus de l'autre au lieu de les avoir côte à côte.
+
+Sur Mobile en 768px, les changements sont plus radicaux pour optimiser l'espace :
+Le header change de structure : les liens de navigation passent en bas du logo et prennent
+chacun 50% de la largeur du téléphone.
+
+La barre de recherche se simplifie : le texte du bouton disparaît au profit d'une icône de loupe.
+Les filtres basculent en grille de 2 colonnes pour rester accessibles au pouce.
+
+Et enfin, toutes les cartes s'étendent sur 100% de la largeur disponible pour offrir
+un confort de lecture maximal. Toutes ces transitions se font via des media queries propres,
+sans duplication de contenu HTML."
+
+-----------------------------
+8. Conclusion et Qualité du Code (9:30 - 10:00)
+-----------------------------
+[08] "Pour conclure, j'ai veillé à ce que mon code soit de haute qualité.
+J'ai utilisé des variables CSS pour les couleurs principales,
+ce qui rend le site facilement personnalisable à l'avenir.
+
+J'ai également pris soin de l'accessibilité avec des attributs aria-hidden et
+des textes alternatifs pour les lecteurs d'écran. Booki est aujourd'hui un site fonctionnel,
+fidèle à la maquette et prêt pour une utilisation réelle. Merci de votre attention,
+je suis maintenant ouvert à vos questions."
