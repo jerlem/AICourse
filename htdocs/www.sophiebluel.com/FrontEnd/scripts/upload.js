@@ -1,25 +1,18 @@
 import { getToken } from './auth.js';
 import { fetchAndRenderWorks } from './works.js';
 
+/**
+ * Initialise les fonctionnalités d'upload de projet
+ */
 export async function initUpload() {
     const form = document.getElementById('add-photo-form');
     const fileInput = document.getElementById('file-upload');
     const imagePreview = document.getElementById('image-preview');
-    const categorySelect = document.getElementById('photo-category');
 
-    // Load categories for select
-    const catResponse = await fetch('http://localhost:5678/api/categories');
-    const categories = await catResponse.json();
+    // Chargement initial des catégories
+    await updateCategorySelect();
 
-    categorySelect.innerHTML = '<option value=""></option>';
-    categories.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat.id;
-        option.textContent = cat.name;
-        categorySelect.appendChild(option);
-    });
-
-    // Image preview
+    // Gestion de la prévisualisation de l'image sélectionnée
     fileInput.addEventListener('change', () => {
         const file = fileInput.files[0];
         if (file) {
@@ -27,6 +20,7 @@ export async function initUpload() {
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
                 imagePreview.style.display = 'block';
+                // Masque les éléments par défaut du conteneur d'upload
                 document.querySelector('.upload-container i').style.display = 'none';
                 document.querySelector('.upload-label').style.display = 'none';
                 document.querySelector('.upload-container p').style.display = 'none';
@@ -36,15 +30,19 @@ export async function initUpload() {
         }
     });
 
-    // Form validity
+    // Écoute des changements sur tous les champs pour valider le formulaire en temps réel
     const inputs = form.querySelectorAll('input, select');
     inputs.forEach(input => {
         input.addEventListener('input', checkFormValidity);
     });
 
+    /**
+     * Gestionnaire de soumission du formulaire d'ajout de projet
+     */
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Création de l'objet FormData pour l'envoi multipart
         const formData = new FormData();
         formData.append('image', fileInput.files[0]);
         formData.append('title', document.getElementById('photo-title').value);
@@ -62,18 +60,18 @@ export async function initUpload() {
             });
 
             if (response.ok) {
-                // Success
+                // Succès : réinitialisation du formulaire et de l'interface
                 form.reset();
                 imagePreview.style.display = 'none';
                 document.querySelector('.upload-container i').style.display = 'block';
                 document.querySelector('.upload-label').style.display = 'block';
                 document.querySelector('.upload-container p').style.display = 'block';
 
-                // Close modal or return to gallery
+                // Retour à la vue galerie de la modale
                 const backBtn = document.querySelector('.js-modal-back');
                 backBtn.click();
 
-                // Refresh galleries
+                // Rafraîchissement des galeries (principale)
                 fetchAndRenderWorks();
             } else {
                 console.error('Erreur lors de l\'ajout du projet');
@@ -84,6 +82,32 @@ export async function initUpload() {
     });
 }
 
+/**
+ * Met à jour le sélecteur de catégories dans le formulaire d'ajout
+ */
+export async function updateCategorySelect() {
+    const categorySelect = document.getElementById('photo-category');
+    if (!categorySelect) return;
+
+    try {
+        const catResponse = await fetch('http://localhost:5678/api/categories');
+        const categories = await catResponse.json();
+
+        categorySelect.innerHTML = '<option value=""></option>';
+        categories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = cat.name;
+            categorySelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour des catégories:', error);
+    }
+}
+
+/**
+ * Vérifie si tous les champs requis sont remplis pour activer le bouton de validation
+ */
 function checkFormValidity() {
     const fileInput = document.getElementById('file-upload');
     const titleInput = document.getElementById('photo-title');

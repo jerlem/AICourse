@@ -17,7 +17,8 @@
 <body>
 	<div id="edit-bar" class="edit-bar">
 		<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
-		<button id="publish-changes">publier les changements</button>
+		<button id="open-modal" class="edit-bar-btn">modifier les projets</button>
+		<button id="manage-categories-bar-btn" class="edit-bar-btn">Gérer les catégories</button>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -49,8 +50,7 @@
 		<section id="portfolio">
 			<div class="portfolio-header">
 				<h2>Mes Projets</h2>
-				<a href="#modal" id="open-modal" class="edit-trigger"><i class="fa-regular fa-pen-to-square"></i>
-					modifier</a>
+
 			</div>
 			<div id="filters" class="filters"></div>
 			<div class="gallery">
@@ -112,6 +112,24 @@
 					<input type="submit" value="Valider" id="submit-photo" class="modal-btn-validate">
 				</form>
 			</div>
+		</div>
+	</aside>
+
+	<aside id="modal-categories" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal-cat"
+		style="display:none;">
+		<div class="modal-wrapper js-modal-stop">
+			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+			<h3 id="titlemodal-cat">Gestion catégories</h3>
+			<div class="categories-list-container">
+				<ul id="categories-admin-list">
+					<!-- Categories will be injected here -->
+				</ul>
+			</div>
+			<hr>
+			<form id="add-category-form">
+				<input type="text" id="new-category-name" placeholder="Nouvelle catégorie" required>
+				<button type="submit" class="modal-btn-small">Ajouter</button>
+			</form>
 		</div>
 	</aside>
 
