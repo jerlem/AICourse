@@ -1,6 +1,5 @@
 import { updateWorksForFilters } from './categories.js';
-
-const API_URL = 'http://localhost:5678/api';
+import { getWorks } from './api.js';
 
 /**
  * Récupère les travaux depuis l'API et les affiche dans la galerie principale
@@ -8,8 +7,7 @@ const API_URL = 'http://localhost:5678/api';
  */
 export async function fetchAndRenderWorks() {
     try {
-        const response = await fetch(`${API_URL}/works`);
-        const works = await response.json();
+        const works = await getWorks();
         renderWorks(works);
         updateWorksForFilters(works); // Mise à jour de la liste pour les filtres
         return works;

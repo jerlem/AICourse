@@ -1,7 +1,7 @@
 import { renderWorks } from './works.js';
 import { getToken } from './auth.js';
+import { getCategories, createCategory as apiCreateCategory, updateCategory as apiUpdateCategory, deleteCategory as apiDeleteCategory } from './api.js';
 
-const API_URL = 'http://localhost:5678/api';
 let currentWorks = [];
 let currentCategories = [];
 
@@ -12,8 +12,7 @@ let currentCategories = [];
 export async function fetchAndRenderCategories(allWorks) {
     if (allWorks) currentWorks = allWorks;
     try {
-        const response = await fetch(`${API_URL}/categories`);
-        currentCategories = await response.json();
+        currentCategories = await getCategories();
         renderFilters();
     } catch (error) {
         console.error('Erreur lors de la récupération des catégories:', error);
@@ -83,21 +82,7 @@ function createFilterButton(name, id) {
 export async function createCategory(name) {
     const token = getToken();
     try {
-        const response = await fetch(`${API_URL}/categories`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ name })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to create category: ${response.status}`);
-        }
-
-        const result = await response.json();
-        return result;
+        return await apiCreateCategory(name, token);
     } catch (error) {
         throw error;
     }
@@ -111,15 +96,7 @@ export async function createCategory(name) {
 export async function updateCategory(id, name) {
     const token = getToken();
     try {
-        const response = await fetch(`${API_URL}/categories/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ name })
-        });
-        return await response.json();
+        return await apiUpdateCategory(id, name, token);
     } catch (error) {
         console.error('Erreur lors de la mise à jour de la catégorie:', error);
     }
@@ -132,15 +109,7 @@ export async function updateCategory(id, name) {
 export async function deleteCategory(id) {
     const token = getToken();
     try {
-        const response = await fetch(`${API_URL}/categories/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Erreur lors de la suppression');
-        }
+        await apiDeleteCategory(id, token);
     } catch (error) {
         console.error('Erreur lors de la suppression de la catégorie:', error);
         throw error;

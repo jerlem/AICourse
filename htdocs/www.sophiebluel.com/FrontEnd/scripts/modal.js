@@ -2,6 +2,7 @@ import { renderWorks, fetchAndRenderWorks } from './works.js';
 import { getToken } from './auth.js';
 import { createCategory, updateCategory, deleteCategory, fetchAndRenderCategories } from './categories.js';
 import { updateCategorySelect } from './upload.js';
+import { getWorks, getCategories, deleteWork as apiDeleteWork } from './api.js';
 
 let activeModal = null;
 
@@ -131,23 +132,26 @@ async function renderModalGallery() {
     if (!galleryContainer) return;
     galleryContainer.innerHTML = '';
 
-    const response = await fetch('http://localhost:5678/api/works');
-    const works = await response.json();
+    try {
+        const works = await getWorks();
 
-    works.forEach(work => {
-        const figure = document.createElement('figure');
-        const img = document.createElement('img');
-        const deleteBtn = document.createElement('button');
+        works.forEach(work => {
+            const figure = document.createElement('figure');
+            const img = document.createElement('img');
+            const deleteBtn = document.createElement('button');
 
-        img.src = work.imageUrl;
-        deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.addEventListener('click', () => deleteWork(work.id));
+            img.src = work.imageUrl;
+            deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.addEventListener('click', () => deleteWork(work.id));
 
-        figure.appendChild(img);
-        figure.appendChild(deleteBtn);
-        galleryContainer.appendChild(figure);
-    });
+            figure.appendChild(img);
+            figure.appendChild(deleteBtn);
+            galleryContainer.appendChild(figure);
+        });
+    } catch (error) {
+        console.error('Erreur lors du rendu de la galerie de la modale:', error);
+    }
 }
 
 /**
@@ -158,57 +162,60 @@ async function renderCategoriesAdmin() {
     if (!listContainer) return;
     listContainer.innerHTML = '';
 
-    const response = await fetch('http://localhost:5678/api/categories');
-    const categories = await response.json();
+    try {
+        const categories = await getCategories();
 
-    categories.forEach(category => {
-        const li = document.createElement('li');
-        li.textContent = category.name;
+        categories.forEach(category => {
+            const li = document.createElement('li');
+            li.textContent = category.name;
 
-        const actionsDiv = document.createElement('div');
-        actionsDiv.className = 'cat-actions';
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'cat-actions';
 
-        // Bouton Edit
-        const editBtn = document.createElement('button');
-        editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
-        editBtn.addEventListener('click', async () => {
-            const newName = prompt('Nouveau nom pour la catégorie :', category.name);
-            if (newName && newName.trim() !== '' && newName !== category.name) {
-                await updateCategory(category.id, newName.trim());
-                await renderCategoriesAdmin();
-                await updateCategorySelect();
-
-                // Rafraîchir les filtres de la page principale
-                const works = await fetchAndRenderWorks();
-                await fetchAndRenderCategories(works);
-            }
-        });
-
-        // Bouton Delete
-        const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-        deleteBtn.className = 'delete-cat';
-        deleteBtn.addEventListener('click', async () => {
-            if (confirm(`Supprimer la catégorie "${category.name}" ?`)) {
-                try {
-                    await deleteCategory(category.id);
+            // Bouton Edit
+            const editBtn = document.createElement('button');
+            editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
+            editBtn.addEventListener('click', async () => {
+                const newName = prompt('Nouveau nom pour la catégorie :', category.name);
+                if (newName && newName.trim() !== '' && newName !== category.name) {
+                    await updateCategory(category.id, newName.trim());
                     await renderCategoriesAdmin();
                     await updateCategorySelect();
 
                     // Rafraîchir les filtres de la page principale
                     const works = await fetchAndRenderWorks();
                     await fetchAndRenderCategories(works);
-                } catch (err) {
-                    alert('Erreur : Impossible de supprimer une catégorie liée à des travaux.');
                 }
-            }
-        });
+            });
 
-        actionsDiv.appendChild(editBtn);
-        actionsDiv.appendChild(deleteBtn);
-        li.appendChild(actionsDiv);
-        listContainer.appendChild(li);
-    });
+            // Bouton Delete
+            const deleteBtn = document.createElement('button');
+            deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            deleteBtn.className = 'delete-cat';
+            deleteBtn.addEventListener('click', async () => {
+                if (confirm(`Supprimer la catégorie "${category.name}" ?`)) {
+                    try {
+                        await deleteCategory(category.id);
+                        await renderCategoriesAdmin();
+                        await updateCategorySelect();
+
+                        // Rafraîchir les filtres de la page principale
+                        const works = await fetchAndRenderWorks();
+                        await fetchAndRenderCategories(works);
+                    } catch (err) {
+                        alert('Erreur : Impossible de supprimer une catégorie liée à des travaux.');
+                    }
+                }
+            });
+
+            actionsDiv.appendChild(editBtn);
+            actionsDiv.appendChild(deleteBtn);
+            li.appendChild(actionsDiv);
+            listContainer.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Erreur lors du rendu des catégories admin:', error);
+    }
 }
 
 /**
@@ -221,19 +228,9 @@ async function deleteWork(id) {
     if (!confirm('Voulez-vous vraiment supprimer ce projet ?')) return;
 
     try {
-        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (response.ok) {
-            await renderModalGallery();
-            await fetchAndRenderWorks();
-        } else {
-            console.error('Erreur lors de la suppression');
-        }
+        await apiDeleteWork(id, token);
+        await renderModalGallery();
+        await fetchAndRenderWorks();
     } catch (error) {
         console.error('Erreur lors de la suppression:', error);
     }

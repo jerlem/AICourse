@@ -1,5 +1,6 @@
 import { getToken } from './auth.js';
 import { fetchAndRenderWorks } from './works.js';
+import { createWork, getCategories } from './api.js';
 
 /**
  * Initialise les fonctionnalités d'upload de projet
@@ -51,31 +52,21 @@ export async function initUpload() {
         const token = getToken();
 
         try {
-            const response = await fetch('http://localhost:5678/api/works', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
-            });
+            await createWork(formData, token);
 
-            if (response.ok) {
-                // Succès : réinitialisation du formulaire et de l'interface
-                form.reset();
-                imagePreview.style.display = 'none';
-                document.querySelector('.upload-container i').style.display = 'block';
-                document.querySelector('.upload-label').style.display = 'block';
-                document.querySelector('.upload-container p').style.display = 'block';
+            // Succès : réinitialisation du formulaire et de l'interface
+            form.reset();
+            imagePreview.style.display = 'none';
+            document.querySelector('.upload-container i').style.display = 'block';
+            document.querySelector('.upload-label').style.display = 'block';
+            document.querySelector('.upload-container p').style.display = 'block';
 
-                // Retour à la vue galerie de la modale
-                const backBtn = document.querySelector('.js-modal-back');
-                backBtn.click();
+            // Retour à la vue galerie de la modale
+            const backBtn = document.querySelector('.js-modal-back');
+            backBtn.click();
 
-                // Rafraîchissement des galeries (principale)
-                fetchAndRenderWorks();
-            } else {
-                console.error('Erreur lors de l\'ajout du projet');
-            }
+            // Rafraîchissement des galeries (principale)
+            fetchAndRenderWorks();
         } catch (error) {
             console.error('Erreur lors de l\'ajout du projet:', error);
         }
@@ -90,8 +81,7 @@ export async function updateCategorySelect() {
     if (!categorySelect) return;
 
     try {
-        const catResponse = await fetch('http://localhost:5678/api/categories');
-        const categories = await catResponse.json();
+        const categories = await getCategories();
 
         categorySelect.innerHTML = '<option value=""></option>';
         categories.forEach(cat => {

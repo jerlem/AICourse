@@ -17,5 +17,6 @@ start npm run dev
 timeout /t 5
 echo Ouverture du site...
 start http://localhost:8080
-echo Termine !
+start http://localhost:5678/api-docs/#/default/post_users_login
+start http://127.0.0.1:8080/index.html
 pause

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5678/api';
+import { login } from './api.js';
 
 /**
  * Gestionnaire d'événement pour la soumission du formulaire de connexion
@@ -13,24 +13,12 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
     try {
         // Envoi de la requête de connexion à l'API
-        const response = await fetch(`${API_URL}/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
+        const data = await login(email, password);
 
-        if (response.ok) {
-            // Succès : stockage du token et de l'ID utilisateur, puis redirection
-            const data = await response.json();
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('userId', data.userId);
-            window.location.href = 'index.html';
-        } else {
-            // Échec : affichage du message d'erreur
-            errorMsg.style.display = 'block';
-        }
+        // Succès : stockage du token et de l'ID utilisateur, puis redirection
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId);
+        window.location.href = 'index.html';
     } catch (error) {
         // Erreur réseau ou autre : affichage du message d'erreur et log
         console.error('Erreur lors de la connexion:', error);
