@@ -71,6 +71,13 @@ export function initModal() {
             closeModal(e);
         }
     });
+
+    // Rafraîchir la galerie de la modale quand un travail est ajouté
+    document.addEventListener('workAdded', () => {
+        if (activeModal && activeModal.id === 'modal') {
+            renderModalGallery();
+        }
+    });
 }
 
 /**

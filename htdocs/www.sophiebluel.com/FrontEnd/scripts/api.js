@@ -64,6 +64,7 @@ export async function deleteWork(id, token) {
     const response = await fetch(`${API_URL}/works/${id}`, {
         method: 'DELETE',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
     });
@@ -137,6 +138,7 @@ export async function deleteCategory(id, token) {
     const response = await fetch(`${API_URL}/categories/${id}`, {
         method: 'DELETE',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
     });

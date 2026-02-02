@@ -67,6 +67,9 @@ export async function initUpload() {
 
             // Rafraîchissement des galeries (principale)
             fetchAndRenderWorks();
+
+            // Déclenche un événement personnalisé pour notifier les autres scripts
+            document.dispatchEvent(new CustomEvent('workAdded'));
         } catch (error) {
             console.error('Erreur lors de l\'ajout du projet:', error);
         }
