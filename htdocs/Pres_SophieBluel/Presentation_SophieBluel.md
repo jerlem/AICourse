@@ -56,3 +56,16 @@
 *   *Min 3-5* : Montrer la partie "Public" (Filtres).
 *   *Min 5-8* : Basculer côté "Admin" (Authentification + Modale).
 *   *Min 9-10* : Récapituler les points forts (Sécurité, Performance, Fidélité au design).
+
+ * --- COMPRENDRE LES PROMISES ET ASYNC/AWAIT ---
+ * 
+ * 1. Une PROMISE est un objet représentant la réussite ou l'échec d'une opération asynchrone (ex: un appel réseau).
+ *    Elle a trois états possibles : 'pending' (en attente), 'fulfilled' (réussie), 'rejected' (échouée).
+ * 
+ * 2. Le mot-clé 'async' devant une fonction indique qu'elle retournera toujours une Promise.
+ * 
+ * 3. Le mot-clé 'await' (utilisé uniquement dans une fonction 'async') met en pause l'exécution
+ *    de la fonction jusqu'à ce que la Promise soit résolue, permettant d'écrire du code asynchrone
+ *    qui se lit comme du code synchrone.
+ * 
+ * 4. Gestion d'erreur : On utilise 'try/catch' pour intercepter les échecs de requêtes (rejections).

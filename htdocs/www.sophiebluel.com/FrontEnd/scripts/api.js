@@ -4,20 +4,7 @@
  * Ce fichier centralise toutes les requêtes vers l'API du backend.
  * Il utilise l'API 'fetch' de JavaScript qui repose sur les PROMISES.
  * 
- * --- COMPRENDRE LES PROMISES ET ASYNC/AWAIT ---
- * 
- * 1. Une PROMISE est un objet représentant la réussite ou l'échec d'une opération asynchrone (ex: un appel réseau).
- *    Elle a trois états possibles : 'pending' (en attente), 'fulfilled' (réussie), 'rejected' (échouée).
- * 
- * 2. Le mot-clé 'async' devant une fonction indique qu'elle retournera toujours une Promise.
- * 
- * 3. Le mot-clé 'await' (utilisé uniquement dans une fonction 'async') met en pause l'exécution
- *    de la fonction jusqu'à ce que la Promise soit résolue, permettant d'écrire du code asynchrone
- *    qui se lit comme du code synchrone.
- * 
- * 4. Gestion d'erreur : On utilise 'try/catch' pour intercepter les échecs de requêtes (rejections).
  */
-
 const API_URL = 'http://localhost:5678/api';
 
 /**
