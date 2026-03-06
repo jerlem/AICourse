@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Trend Intelligence - Segformer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for trends visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Fashion Trend <span>Intelligence</span></h1>
+            <p>Segmentation de vêtements propulsée par Segformer B2</p>
+        </header>
+
+        <main>
+            <!-- 1. IMAGE SELECTION GRID -->
+            <section class="image-selector">
+                <div class="section-header">
+                    <h2>1. Choisir une image à analyser</h2>
+                    <button id="process-all-btn" class="btn btn-secondary btn-sm">Générer tous les masques</button>
+                </div>
+                <div id="image-grid" class="image-grid">
+                    <div class="loader">Chargement de la collection...</div>
+                </div>
+            </section>
+
+            <!-- 2. SEGMENTATION RESULTS (Initially Hidden) -->
+            <section id="result-section" class="result-section hidden">
+                <div class="result-header">
+                    <h2>2. Résultat de la segmentation</h2>
+                    <button id="close-result" class="btn-icon" title="Fermer">×</button>
+                </div>
+
+                <!-- NEW: DETECTED LABELS LIST -->
+                <div id="detected-items" class="detected-items">
+                    <!-- Labels will be injected here as chips -->
+                </div>
+
+                <div class="comparison-container">
+                    <div class="image-box">
+                        <h3>Originale</h3>
+                        <img id="original-img" src="" alt="Image originale">
+                    </div>
+                    <div class="image-box">
+                        <h3>Carte Sémantique</h3>
+                        <div id="mask-container">
+                            <div class="processing-overlay hidden" id="processing-overlay">
+                                <div class="spinner"></div>
+                                <p>Analyse en cours...</p>
+                            </div>
+                            <img id="mask-img" src="" alt="Masque de segmentation">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLOR LEGEND -->
+                <div class="legend-container">
+                    <h3>Légende des catégories</h3>
+                    <div class="legend-grid">
+                        <div class="legend-item"><span class="color-box" style="background: #ffff00;"></span> Chapeau /
+                            Chaussure G</div>
+                        <div class="legend-item"><span class="color-box" style="background: #ffa500;"></span> Cheveux
+                        </div>
+                        <div class="legend-item"><span class="color-box" style="background: #ff00ff;"></span> Lunettes
+                            de soleil</div>
+                        <div class="legend-item"><span class="color-box" style="background: #ff0000;"></span> Haut
+                            (vêtement)</div>
+                        <div class="legend-item"><span class="color-box" style="background: #00ffff;"></span> Jupe</div>
+                        <div class="legend-item"><span class="color-box" style="background: #00ff00;"></span> Pantalon
+                        </div>
+                        <div class="legend-item"><span class="color-box" style="background: #0000ff;"></span> Robe</div>
+                        <div class="legend-item"><span class="color-box" style="background: #800080;"></span> Ceinture /
+                            Écharpe</div>
+                        <div class="legend-item"><span class="color-box" style="background: #00bfff;"></span> Chaussure
+                            droite</div>
+                        <div class="legend-item"><span class="color-box" style="background: #add8e6;"></span> Visage
+                        </div>
+                        <div class="legend-item"><span class="color-box" style="background: #ff8c00;"></span> Sac</div>
+                        <div class="legend-item"><span class="color-box" style="background: #b0c4de;"></span> Bras /
+                            Jambes</div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="run-segmentation" class="btn btn-primary">Lancer l'Analyse Sémantique</button>
+                </div>
+            </section>
+
+            <!-- 3. GLOBAL TRENDS ANALYSIS -->
+            <section id="trends-section" class="trends-section">
+                <div class="trends-header">
+                    <h2>3. Tendances de Mode Globales</h2>
+                    <button id="analyze-all-btn" class="btn btn-secondary">Analyser toute la collection (15
+                        images)</button>
+                </div>
+
+                <div id="trends-content" class="trends-content hidden">
+                    <div class="chart-container">
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 AICourse - Fashion Trend Intelligence Tool</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de Process - FashionTrendIntelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --accent: #10b981;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-fill-color: transparent;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .step-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        pre {
+            background-color: #0c1120;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 0.5rem;
+            border: 1px solid #1e293b;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        code {
+            color: #e2e8f0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>FashionTrendIntelligence</h1>
+            <p class="subtitle">Documentation Exhaustive du Processus d'Initialisation</p>
+        </header>
+
+        <!-- Section 1: Architecture du Projet -->
+        <section class="card">
+            <h2>1. Architecture et Structure</h2>
+            <p class="step-desc" style="margin-bottom: 1rem;">Organisation des fichiers et dossiers dans
+                <code>/FashionTrendIntelligence/</code> :
+            </p>
+            <pre><code>FashionTrendIntelligence/
+├── .venv/                   # Environnement virtuel Python (isolé)
+├── doc/
+│   └── process_sheet.html   # Cette fiche de documentation
+├── .env                     # Variables d'environnement (Token HF)
+├── requirements.txt         # Liste exhaustive des dépendances
+├── SegformerClothes.py      # Script principal (Segmentation)
+├── verify_env.py            # Script de vérification technique
+└── FashionTrend...url       # Raccourci vers les ressources</code></pre>
+        </section>
+
+        <!-- Section 2: Environnement Python -->
+        <section class="card">
+            <h2>2. Configuration de l'Environnement</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p class="step-title">Création et Activation</p>
+                    <p class="step-desc">L'environnement virtuel (venv) assure que le projet dispose de ses propres
+                        versions de bibliothèques.</p>
+                    <pre><code># Création
+python -m venv .venv
+
+# Activation (PowerShell)
+.\.venv\Scripts\Activate.ps1</code></pre>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p class="step-title">Installation des Dépendances</p>
+                    <p class="step-desc">Installation groupée des bibliothèques nécessaires au traitement de données et
+                        à l'IA.</p>
+                    <pre><code>pip install requests Pillow matplotlib numpy huggingface_hub python-dotenv</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Détail des Bibliothèques -->
+        <section class="card">
+            <h2>3. Rôle des Bibliothèques</h2>
+            <style>
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                }
+
+                th,
+                td {
+                    padding: 0.75rem;
+                    text-align: left;
+                    border-bottom: 1px solid var(--border);
+                }
+
+                th {
+                    color: var(--primary);
+                    font-weight: 600;
+                }
+
+                td code {
+                    color: var(--accent);
+                }
+            </style>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bibliothèque</th>
+                        <th>Usage Principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>requests</code></td>
+                        <td>Gestion des requêtes HTTP vers les APIs externes.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Pillow (PIL)</code></td>
+                        <td>Traitement et manipulation d'images (redimensionnement, formats).</td>
+                    </tr>
+                    <tr>
+                        <td><code>matplotlib</code></td>
+                        <td>Visualisation de données et affichage des masques de segmentation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>numpy</code></td>
+                        <td>Calcul numérique et manipulation des matrices d'images.</td>
+                    </tr>
+                    <tr>
+                        <td><code>huggingface_hub</code></td>
+                        <td>Interface officielle pour interagir avec les modèles Hugging Face.</td>
+                    </tr>
+                    <tr>
+                        <td><code>python-dotenv</code></td>
+                        <td>Chargement sécurisé des variables depuis le fichier <code>.env</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 4: Hugging Face & Sécurité -->
+        <section class="card">
+            <h2>4. Authentification et Sécurité</h2>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p class="step-title">Configuration du Token</p>
+                    <p class="step-desc">Le token est stocké dans <code>.env</code> pour ne pas l'exposer dans le code
+                        source.</p>
+                    <pre><code>HF_TOKEN=hf_wFDQjaHO... (Token personnel)</code></pre>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p class="step-title">Validation de l'Accès</p>
+                    <p class="step-desc">Test d'identité via le SDK Hugging Face pour confirmer la validité du token.
+                    </p>
+                    <pre><code>from huggingface_hub import whoami
+whoami(token=hf_token) # Retourne l'utilisateur : titblond</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Journal des Réalisations -->
+        <section class="card">
+            <h2>5. Journal des Réalisations</h2>
+            <div class="step">
+                <div class="step-number">🏁</div>
+                <div class="step-content">
+                    <p class="step-title">Configuration Initiale (13/02/2026)</p>
+                    <ul class="step-desc" style="margin-left: 1.25rem; list-style-type: disc;">
+                        <li>Environnement virtuel Python initialisé et isolé.</li>
+                        <li>Bibliothèques coeurs (Requests, Pillow, Matplotlib, Numpy) installées et testées.</li>
+                        <li>Intégration du SDK Hugging Face et sécurisation via variables d'environnement.</li>
+                        <li>Script <code>SegformerClothes.py</code> opérationnel pour les futurs traitements.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">✅</div>
+                <div class="step-content">
+                    <p class="step-title">Preuves de Validation</p>
+                    <p class="step-desc">Résultat du test de connectivité Hugging Face :</p>
+                    <pre><code>Connexion réussie ! Utilisateur : titblond</code></pre>
+                    <p class="step-desc" style="margin-top: 0.5rem;">Résultat de l'import technique :</p>
+                    <pre><code>Python: 3.14.0 | Requests: 2.32.5 | Pillow: 12.1.1 | Numpy: 2.4.2</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Maintenance et Évolution -->
+        <section class="card">
+            <h2>6. Maintenance du Projet</h2>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <p class="step-title">Mise à jour des Dépendances</p>
+                    <p class="step-desc">Pour ajouter une bibliothèque ou mettre à jour le projet :</p>
+                    <pre><code># 1. Installer la nouvelle lib
+pip install nom_de_la_lib
+
+# 2. Mettre à jour le registre
+pip freeze > requirements.txt</code></pre>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <p class="step-title">Vérification de l'Intégrité</p>
+                    <p class="step-desc">Lancer régulièrement <code>verify_env.py</code> pour s'assurer que
+                        l'environnement est sain.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Document généré le 13 Février 2026 &bull; FashionTrendIntelligence Documentation</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">&copy; Antigravity AI Systems</p>
+        </footer>
+    </div>
+</body>
+
+</html>

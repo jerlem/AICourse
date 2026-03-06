@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support de Présentation - ModeTrends</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --secondary: #c084fc;
+            --bg: #030712;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(129, 140, 248, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.05) 0%, transparent 40%);
+        }
+
+        /* Slide Container */
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 80%;
+            max-width: 1000px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100px) scale(0.95);
+            transition: all 0.6s var(--transition);
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 4rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0) scale(1);
+        }
+
+        .slide.prev {
+            transform: translateX(-100px) scale(0.95);
+        }
+
+        /* Slide Content Styles */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .content-body {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .content-body ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-body li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .info-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(129, 140, 248, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 9999px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            position: fixed;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s var(--transition);
+        }
+
+        .dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Specific Slide Designs */
+        .slide-title-card {
+            text-align: center;
+        }
+
+        .author-name {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-dim);
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .cost-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .cost-card h3 {
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                width: 95%;
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide slide-title-card active">
+            <span class="info-badge">Projet ModeTrends</span>
+            <h1>Fashion Trend<br>Intelligence</h1>
+            <p class="author-name">ModeTrend Team</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2>Présentation du projet</h2>
+            <div class="content-body">
+                <p>Mise en place d'un système intelligent d'analyse des tendances vestimentaires basé sur la vision par
+                    ordinateur et le Deep Learning.</p>
+                <ul>
+                    <li>Automatisation de la détection de vêtements sur les réseaux sociaux.</li>
+                    <li>Extraction de métadonnées précises pour les analystes mode.</li>
+                    <li>Utilisation de modèles d'IA de pointe via Hugging Face.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2>Fonctionnement de Segformer</h2>
+            <div class="content-body">
+                <p>Le modèle SegFormer (Segmentation Transformer) combine l'efficacité des Transformers avec une
+                    structure hiérarchique adaptée à la vision.</p>
+                <ul>
+                    <li><strong>Encodeur hiérarchique :</strong> Génère des caractéristiques à différentes résolutions.
+                    </li>
+                    <li><strong>Décodeur MLP léger :</strong> Fusionne les informations pour une segmentation précise au
+                        pixel près.</li>
+                    <li>Spécialisé dans la segmentation de tissus et accessoires vestimentaires.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2>Performances du modèle</h2>
+            <div class="content-body">
+                <p>Analyse sur un échantillon de 50 images de test (Benchmark interne) :</p>
+                <ul>
+                    <li>Taux de précision moyen (mIoU) : Analyse en cours sur le dataset.</li>
+                    <li>Temps moyen d'inférence : ~200ms par image (CPU standard).</li>
+                    <li>Détection multi-classes : Haut, Bas, Chaussures, Sacs, Accessoires.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2>Méthode de validation</h2>
+            <div class="content-body">
+                <p>Pour garantir la fiabilité des données extraites :</p>
+                <ul>
+                    <li><strong>Validation croisée :</strong> Comparaison avec des annotations manuelles d'experts mode.
+                    </li>
+                    <li><strong>Test de robustesse :</strong> Performances sous différents éclairages et poses.</li>
+                    <li><strong>Score de confiance :</strong> Filtrage des segmentations avec une confiance < 85%.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2>Passage à l’échelle et coût</h2>
+            <div class="content-body">
+                <p>Simulation pour un volume de production industrielle :</p>
+                <div class="cost-card">
+                    <h3>Estimation : 500 000 images / 30 jours</h3>
+                    <p>Utilisation d'instances GPU optimisées (Inference Endpoints) :</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Parallélisation massive des requêtes.</li>
+                        <li>Coût estimé : Optimisation via instances spot ou Reserved.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <h2>Conformité Réglementaire</h2>
+            <div class="content-body">
+                <p>Respect des standards éthiques et légaux de l'IA.</p>
+                <ul>
+                    <li><strong>RGPD :</strong> Anonymisation automatique des visages lors de l'extraction des données
+                        mode.</li>
+                    <li><strong>IA Act :</strong> Analyse du niveau de risque et documentation technique exhaustive
+                        fournie.</li>
+                    <li>Sécurité des données : Pas de stockage permanent d'images personnelles.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide">
+            <h2>Bilan & Perspectives</h2>
+            <div class="content-body">
+                <p>Une étape majeure dans la transformation digitale de ModeTrend.</p>
+                <ul>
+                    <li><strong>Défis :</strong> Variabilité des poses et chevauchement des couches textiles.</li>
+                    <li><strong>Améliorations :</strong> Fine-tuning sur le catalogue spécifique de la marque.</li>
+                    <li><strong>Applications :</strong> Moteur de recommandation visuelle et prédiction de stocks.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="controls">
+            <button class="nav-btn" id="prevBtn">←</button>
+            <div class="progress-dots" id="dots"></div>
+            <button class="nav-btn" id="nextBtn">→</button>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlides() {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i === currentSlide) {
+                    slide.classList.add('active');
+                } else if (i < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlides();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlides();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextBtn.click();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+        });
+    </script>
+</body>
+
+</html>

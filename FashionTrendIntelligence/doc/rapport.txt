@@ -1,0 +1,49 @@
+Rapport Technique : Méthodes de Segmentation d'Image
+La segmentation d'image consiste à regrouper des pixels ayant des caractéristiques communes afin de simplifier la représentation d'une image. Dans le cadre de l'analyse de tenues vestimentaires (ex: photos de mode), plusieurs approches sont possibles selon le niveau de détail requis.
+
+1. Segmentation Sémantique (Semantic Segmentation)
+C'est la méthode la plus courante. Elle consiste à assigner une classe à chaque pixel de l'image.
+
+Principe : Tous les pixels appartenant à la catégorie "vêtement" sont colorés de la même manière, sans distinction entre deux vêtements de même type.
+
+Usage type : Identifier les zones occupées par le "fond", la "peau" ou les "vêtements".
+
+Limitation : Si deux personnes portent des robes côte à côte, le modèle les verra comme une seule masse continue.
+
+2. Segmentation d'Instance (Instance Segmentation)
+Cette méthode va plus loin en distinguant chaque objet individuel d'une même classe.
+
+Principe : Elle détecte d'abord l'objet (souvent via une bounding box), puis segmente les pixels à l'intérieur.
+
+Usage type : Isoler précisément le "haut" du "bas" ou distinguer plusieurs accessoires (sac, lunettes) portés par la même personne.
+
+Algorithme de référence : Mask R-CNN.
+
+3. Segmentation Panoptique (Panoptic Segmentation)
+Il s'agit de la fusion des deux méthodes précédentes.
+
+Principe : Elle segmente à la fois les objets dénombrables (instances comme les vêtements) et le fond non dénombrable (texture du mur, ciel, route).
+
+Usage type : Utile pour comprendre le contexte complet de vos photos (ex: une femme en robe [instance] sur une pelouse [sémantique]).
+
+4. Approches Techniques et Architectures
+A. Méthodes basées sur les Seuils (Thresholding)
+Principe : On sépare les pixels selon leur intensité lumineuse ou leur couleur.
+
+Application : Très efficace pour isoler le personnage sur un fond uni (comme la neige dans votre image_0.jpg).
+
+Inconvénient : Échoue totalement sur des fonds complexes (briques, végétation).
+
+B. Deep Learning : L'architecture U-Net
+Particulièrement efficace pour la segmentation précise.
+
+Structure : Une partie "contractante" pour capturer le contexte et une partie "symétrique" pour localiser précisément les pixels.
+
+Avantage : Excellente pour respecter les contours complexes (cheveux, fourrure de capuche).
+
+C. Services IA managés (Azure Custom Vision, etc.)
+C'est souvent l'approche privilégiée dans les projets OpenClassrooms.
+
+Principe : Utilisation de modèles pré-entraînés par de grands fournisseurs (Microsoft, Google) que l'on affine avec ses propres images (Transfer Learning).
+
+Avantage : Rapidité de mise en œuvre et pas besoin d'une puissance de calcul locale énorme.

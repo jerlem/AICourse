@@ -1,0 +1,33 @@
+Justification du choix des métriques de segmentation
+Pour évaluer la performance de mon modèle sur ce jeu de données de mode,
+j'ai sélectionné le mIoU (mean Intersection over Union)
+comme métrique principale, complété par le Dice Coefficient.
+
+1. Pourquoi le mIoU (Métrique principale) ?
+Le mIoU est le standard industriel pour la segmentation d'objets.
+Il calcule le taux de recouvrement entre le masque prédit par l'IA
+et le masque réel (Ground Truth).
+
+Rigueur sur les contours : Contrairement à la simple Accuracy,
+le mIoU pénalise fortement les débordements sur l'arrière-plan
+(ex: le mur de briques ou la neige), ce qui est crucial pour détourer
+ proprement un vêtement.
+
+Équilibre des classes : En calculant la moyenne par classe (vêtement par vêtement),
+cette métrique évite que les pixels majoritaires du décor ne masquent une mauvaise
+segmentation des accessoires plus petits comme les chaussures ou les sacs.
+
+2. Pourquoi le Dice Coefficient (Métrique de support) ?
+Le score Dice est utilisé pour mesurer la cohésion globale de la forme détectée.
+
+Gestion des textures complexes : Sur des images avec des motifs géométriques
+ou des superpositions (manteaux ouverts sur un pull), le Dice offre une vision
+plus stable de la capacité du modèle à "remplir" la zone du vêtement sans être
+trop pénalisé par des micro-erreurs de pixels isolés.
+
+3. Rejet de la "Pixel Accuracy"
+J'ai délibérément écarté la Pixel Accuracy pour l'évaluation finale.
+Sur mes images de test, l'arrière-plan (neige, route, végétation) occupe souvent
+plus de 70 % de la surface. Un modèle pourrait obtenir un score de 70 %
+d'exactitude en ne détectant aucun vêtement,
+ce qui rendrait cette métrique trompeuse pour un usage métier.
